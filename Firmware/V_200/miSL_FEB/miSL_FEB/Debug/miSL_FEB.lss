@@ -1,0 +1,426 @@
+
+miSL_FEB.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001c4  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000238  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000003  00800060  00800060  00000238  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000238  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000268  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000038  00000000  00000000  000002a4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000006e2  00000000  00000000  000002dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000005e1  00000000  00000000  000009be  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000041b  00000000  00000000  00000f9f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000084  00000000  00000000  000013bc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003d7  00000000  00000000  00001440  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000001c7  00000000  00000000  00001817  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000028  00000000  00000000  000019de  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3e 00 	jmp	0x7c	; 0x7c <__vector_1>
+   8:	0c 94 4d 00 	jmp	0x9a	; 0x9a <__vector_2>
+   c:	0c 94 5e 00 	jmp	0xbc	; 0xbc <__vector_3>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a3 36       	cpi	r26, 0x63	; 99
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 6d 00 	call	0xda	; 0xda <main>
+  74:	0c 94 e0 00 	jmp	0x1c0	; 0x1c0 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <__vector_1>:
+
+
+// External Interrupt 0 service routine
+// To sense cutter sensor
+ISR(INT0_vect)
+{
+  7c:	1f 92       	push	r1
+  7e:	0f 92       	push	r0
+  80:	0f b6       	in	r0, 0x3f	; 63
+  82:	0f 92       	push	r0
+  84:	11 24       	eor	r1, r1
+  86:	8f 93       	push	r24
+	cutterSensor = 0xFF;
+  88:	8f ef       	ldi	r24, 0xFF	; 255
+  8a:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <cutterSensor>
+}
+  8e:	8f 91       	pop	r24
+  90:	0f 90       	pop	r0
+  92:	0f be       	out	0x3f, r0	; 63
+  94:	0f 90       	pop	r0
+  96:	1f 90       	pop	r1
+  98:	18 95       	reti
+
+0000009a <__vector_2>:
+
+// External Interrupt 1 service routine
+// To sense the iMark sensor
+ISR(INT1_vect)
+{
+  9a:	1f 92       	push	r1
+  9c:	0f 92       	push	r0
+  9e:	0f b6       	in	r0, 0x3f	; 63
+  a0:	0f 92       	push	r0
+  a2:	11 24       	eor	r1, r1
+  a4:	8f 93       	push	r24
+	 cutterSensor = 0x00;
+  a6:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <cutterSensor>
+	 iMarkSensor = 0xFF;
+  aa:	8f ef       	ldi	r24, 0xFF	; 255
+  ac:	80 93 62 00 	sts	0x0062, r24	; 0x800062 <iMarkSensor>
+}
+  b0:	8f 91       	pop	r24
+  b2:	0f 90       	pop	r0
+  b4:	0f be       	out	0x3f, r0	; 63
+  b6:	0f 90       	pop	r0
+  b8:	1f 90       	pop	r1
+  ba:	18 95       	reti
+
+000000bc <__vector_3>:
+
+// External Interrupt 2 service routine
+// To sense print command
+ISR(INT2_vect)
+{
+  bc:	1f 92       	push	r1
+  be:	0f 92       	push	r0
+  c0:	0f b6       	in	r0, 0x3f	; 63
+  c2:	0f 92       	push	r0
+  c4:	11 24       	eor	r1, r1
+  c6:	8f 93       	push	r24
+	 printCommand = 0xFF;
+  c8:	8f ef       	ldi	r24, 0xFF	; 255
+  ca:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <_edata>
+}
+  ce:	8f 91       	pop	r24
+  d0:	0f 90       	pop	r0
+  d2:	0f be       	out	0x3f, r0	; 63
+  d4:	0f 90       	pop	r0
+  d6:	1f 90       	pop	r1
+  d8:	18 95       	reti
+
+000000da <main>:
+
+int main(void)
+{
+    // Input/Output Ports initialization
+    // Port A initialization
+    DDRA=(0<<DDA7) | (0<<DDA6) | (0<<DDA5) | (0<<DDA4) | (0<<DDA3) | (0<<DDA2) | (0<<DDA1) | (0<<DDA0);
+  da:	1a ba       	out	0x1a, r1	; 26
+    PORTA=(0<<PA7) | (0<<PA6) | (0<<PA5) | (0<<PA4) | (0<<PA3) | (0<<PA2) | (0<<PA1) | (0<<PA0);
+  dc:	1b ba       	out	0x1b, r1	; 27
+
+    // Port B initialization
+    DDRB=(0<<DDB7) | (0<<DDB6) | (0<<DDB5) | (0<<DDB4) | (0<<DDB3) | (0<<DDB2) | (0<<DDB1) | (0<<DDB0);
+  de:	17 ba       	out	0x17, r1	; 23
+    PORTB=(0<<PB7) | (0<<PB6) | (0<<PB5) | (0<<PB4) | (0<<PB3) | (0<<PB2) | (0<<PB1) | (0<<PB0);
+  e0:	18 ba       	out	0x18, r1	; 24
+
+    // Port C initialization
+    DDRC=(0<<DDC7) | (0<<DDC6) | (0<<DDC5) | (0<<DDC4) | (0<<DDC3) | (0<<DDC2) | (1<<DDC1) | (1<<DDC0);
+  e2:	83 e0       	ldi	r24, 0x03	; 3
+  e4:	84 bb       	out	0x14, r24	; 20
+    PORTC=(0<<PC7) | (0<<PC6) | (0<<PC5) | (0<<PC4) | (0<<PC3) | (0<<PC2) | (0<<PC1) | (0<<PC0);
+  e6:	15 ba       	out	0x15, r1	; 21
+
+    // Port D initialization
+    DDRD=(0<<DDD7) | (1<<DDD6) | (1<<DDD5) | (0<<DDD4) | (0<<DDD3) | (0<<DDD2) | (0<<DDD1) | (0<<DDD0);
+  e8:	80 e6       	ldi	r24, 0x60	; 96
+  ea:	81 bb       	out	0x11, r24	; 17
+    PORTD=(0<<PD7) | (0<<PD6) | (0<<PD5) | (0<<PD4) | (0<<PD3) | (0<<PD2) | (0<<PD1) | (0<<PD0);
+  ec:	12 ba       	out	0x12, r1	; 18
+	// INT0 Mode: Rising Edge
+	// INT1: On
+	// INT1 Mode: Rising Edge
+	// INT2: On
+	// INT2 Mode: Rising Edge
+	GICR|=(1<<INT1) | (1<<INT0) | (1<<INT2);
+  ee:	8b b7       	in	r24, 0x3b	; 59
+  f0:	80 6e       	ori	r24, 0xE0	; 224
+  f2:	8b bf       	out	0x3b, r24	; 59
+	MCUCR=(1<<ISC11) | (1<<ISC10) | (1<<ISC01) | (1<<ISC00);
+  f4:	8f e0       	ldi	r24, 0x0F	; 15
+  f6:	85 bf       	out	0x35, r24	; 53
+	MCUCSR=(1<<ISC2);
+  f8:	80 e4       	ldi	r24, 0x40	; 64
+  fa:	84 bf       	out	0x34, r24	; 52
+	GIFR=(1<<INTF1) | (1<<INTF0) | (1<<INTF2);
+  fc:	80 ee       	ldi	r24, 0xE0	; 224
+  fe:	8a bf       	out	0x3a, r24	; 58
+	
+	// Global Interrupt Enable
+	sei();
+ 100:	78 94       	sei
+__attribute__ ((__always_inline__))
+void wdt_enable (const uint8_t value)
+{
+	if (_SFR_IO_REG_P (_WD_CONTROL_REG))
+	{
+		__asm__ __volatile__ (
+ 102:	9d e0       	ldi	r25, 0x0D	; 13
+ 104:	88 e1       	ldi	r24, 0x18	; 24
+ 106:	0f b6       	in	r0, 0x3f	; 63
+ 108:	f8 94       	cli
+ 10a:	a8 95       	wdr
+ 10c:	81 bd       	out	0x21, r24	; 33
+ 10e:	0f be       	out	0x3f, r0	; 63
+ 110:	91 bd       	out	0x21, r25	; 33
+ 112:	80 e0       	ldi	r24, 0x00	; 0
+ 114:	90 e0       	ldi	r25, 0x00	; 0
+	wdt_enable(WDTO_500MS);
+	
+	// Process Execution Variables
+	uint16_t printSuccessOutputDelayTime = 0;
+	uint16_t visualPulseTime = 0;
+	uint16_t printCommandOutputTime = 0;
+ 116:	60 e0       	ldi	r22, 0x00	; 0
+ 118:	70 e0       	ldi	r23, 0x00	; 0
+	
+	// Enabling Watchdog Timer
+	wdt_enable(WDTO_500MS);
+	
+	// Process Execution Variables
+	uint16_t printSuccessOutputDelayTime = 0;
+ 11a:	40 e0       	ldi	r20, 0x00	; 0
+ 11c:	50 e0       	ldi	r21, 0x00	; 0
+	
+    while (1) 
+    {
+		// To execute visual pulse output
+		if (visualPulseTime++ == 0) {
+			visualPulseOutput_TOGGLE;
+ 11e:	a0 e4       	ldi	r26, 0x40	; 64
+				}
+			}
+			else
+			{
+				printCommandOutput_ON;
+				printCommandOutputTime = printCommandPulseTimeConst;
+ 120:	f0 e1       	ldi	r31, 0x10	; 16
+ 122:	e7 e2       	ldi	r30, 0x27	; 39
+	
+	
+    while (1) 
+    {
+		// To execute visual pulse output
+		if (visualPulseTime++ == 0) {
+ 124:	00 97       	sbiw	r24, 0x00	; 0
+ 126:	21 f4       	brne	.+8      	; 0x130 <main+0x56>
+			visualPulseOutput_TOGGLE;
+ 128:	22 b3       	in	r18, 0x12	; 18
+ 12a:	2a 27       	eor	r18, r26
+ 12c:	22 bb       	out	0x12, r18	; 18
+			// Resetting the watchdog timer
+			wdt_reset();
+ 12e:	a8 95       	wdr
+		}
+		
+		
+		// To execute the printer ready output
+		if (printerPrintDisabled && printerReadyOutput_Status)
+ 130:	b1 9b       	sbis	0x16, 1	; 22
+ 132:	04 c0       	rjmp	.+8      	; 0x13c <main+0x62>
+ 134:	99 9b       	sbis	0x13, 1	; 19
+ 136:	02 c0       	rjmp	.+4      	; 0x13c <main+0x62>
+		printerReadyOutput_OFF;
+ 138:	a9 98       	cbi	0x15, 1	; 21
+ 13a:	04 c0       	rjmp	.+8      	; 0x144 <main+0x6a>
+		else if (!printerPrintDisabled && !printerReadyOutput_Status)
+ 13c:	b1 99       	sbic	0x16, 1	; 22
+ 13e:	02 c0       	rjmp	.+4      	; 0x144 <main+0x6a>
+ 140:	99 9b       	sbis	0x13, 1	; 19
+		printerReadyOutput_ON;
+ 142:	a9 9a       	sbi	0x15, 1	; 21
+		
+		
+		// To execute the print signal
+		if (iMarkSensor && cutterSensor)
+ 144:	20 91 62 00 	lds	r18, 0x0062	; 0x800062 <iMarkSensor>
+ 148:	22 23       	and	r18, r18
+ 14a:	b9 f0       	breq	.+46     	; 0x17a <main+0xa0>
+ 14c:	20 91 61 00 	lds	r18, 0x0061	; 0x800061 <cutterSensor>
+ 150:	22 23       	and	r18, r18
+ 152:	99 f0       	breq	.+38     	; 0x17a <main+0xa0>
+		{
+			if (printCommandOutput_Status)
+ 154:	85 9b       	sbis	0x10, 5	; 16
+ 156:	0c c0       	rjmp	.+24     	; 0x170 <main+0x96>
+			{
+				if (printCommandOutputTime-- == 0)
+ 158:	9b 01       	movw	r18, r22
+ 15a:	21 50       	subi	r18, 0x01	; 1
+ 15c:	31 09       	sbc	r19, r1
+ 15e:	67 2b       	or	r22, r23
+ 160:	59 f4       	brne	.+22     	; 0x178 <main+0x9e>
+				{
+					printCommandOutput_OFF;
+ 162:	95 98       	cbi	0x12, 5	; 18
+					iMarkSensor = 0x00;
+ 164:	10 92 62 00 	sts	0x0062, r1	; 0x800062 <iMarkSensor>
+					cutterSensor = 0x00;
+ 168:	10 92 61 00 	sts	0x0061, r1	; 0x800061 <cutterSensor>
+		// To execute the print signal
+		if (iMarkSensor && cutterSensor)
+		{
+			if (printCommandOutput_Status)
+			{
+				if (printCommandOutputTime-- == 0)
+ 16c:	b9 01       	movw	r22, r18
+ 16e:	05 c0       	rjmp	.+10     	; 0x17a <main+0xa0>
+					cutterSensor = 0x00;
+				}
+			}
+			else
+			{
+				printCommandOutput_ON;
+ 170:	95 9a       	sbi	0x12, 5	; 18
+				printCommandOutputTime = printCommandPulseTimeConst;
+ 172:	6f 2f       	mov	r22, r31
+ 174:	7e 2f       	mov	r23, r30
+ 176:	01 c0       	rjmp	.+2      	; 0x17a <main+0xa0>
+		// To execute the print signal
+		if (iMarkSensor && cutterSensor)
+		{
+			if (printCommandOutput_Status)
+			{
+				if (printCommandOutputTime-- == 0)
+ 178:	b9 01       	movw	r22, r18
+				printCommandOutputTime = printCommandPulseTimeConst;
+			}
+		}
+		
+		// to execute the successful print signal
+		if (printCommand)
+ 17a:	20 91 60 00 	lds	r18, 0x0060	; 0x800060 <_edata>
+ 17e:	22 23       	and	r18, r18
+ 180:	d1 f0       	breq	.+52     	; 0x1b6 <main+0xdc>
+		{
+			if (++printSuccessOutputDelayTime > printSuccessOutputDelayTimeConst)
+ 182:	4f 5f       	subi	r20, 0xFF	; 255
+ 184:	5f 4f       	sbci	r21, 0xFF	; 255
+ 186:	49 32       	cpi	r20, 0x29	; 41
+ 188:	2a e0       	ldi	r18, 0x0A	; 10
+ 18a:	52 07       	cpc	r21, r18
+ 18c:	a0 f0       	brcs	.+40     	; 0x1b6 <main+0xdc>
+			{
+				if (printSuceessOutput_Status)
+ 18e:	98 9b       	sbis	0x13, 0	; 19
+ 190:	0a c0       	rjmp	.+20     	; 0x1a6 <main+0xcc>
+				{
+					if (printSuccessOutputDelayTime > printSuccessOutputPulseTimeConst)
+ 192:	49 3f       	cpi	r20, 0xF9	; 249
+ 194:	2a e2       	ldi	r18, 0x2A	; 42
+ 196:	52 07       	cpc	r21, r18
+ 198:	70 f0       	brcs	.+28     	; 0x1b6 <main+0xdc>
+					{
+						printSuccessOutput_OFF;
+ 19a:	a8 98       	cbi	0x15, 0	; 21
+						printSuccessOutputDelayTime = 0;
+						printCommand = 0x00;
+ 19c:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <_edata>
+				if (printSuceessOutput_Status)
+				{
+					if (printSuccessOutputDelayTime > printSuccessOutputPulseTimeConst)
+					{
+						printSuccessOutput_OFF;
+						printSuccessOutputDelayTime = 0;
+ 1a0:	40 e0       	ldi	r20, 0x00	; 0
+ 1a2:	50 e0       	ldi	r21, 0x00	; 0
+ 1a4:	08 c0       	rjmp	.+16     	; 0x1b6 <main+0xdc>
+						printCommand = 0x00;
+					}
+				}
+				else if (printerPrintDisabled)
+ 1a6:	b1 9b       	sbis	0x16, 1	; 22
+ 1a8:	05 c0       	rjmp	.+10     	; 0x1b4 <main+0xda>
+				{
+					printSuccessOutputDelayTime = 0;
+					printCommand = 0x00;
+ 1aa:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <_edata>
+						printCommand = 0x00;
+					}
+				}
+				else if (printerPrintDisabled)
+				{
+					printSuccessOutputDelayTime = 0;
+ 1ae:	40 e0       	ldi	r20, 0x00	; 0
+ 1b0:	50 e0       	ldi	r21, 0x00	; 0
+ 1b2:	01 c0       	rjmp	.+2      	; 0x1b6 <main+0xdc>
+					printCommand = 0x00;
+				}
+				else
+				{
+					printSuccessOutput_ON;
+ 1b4:	a8 9a       	sbi	0x15, 0	; 21
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 1b6:	24 e0       	ldi	r18, 0x04	; 4
+ 1b8:	2a 95       	dec	r18
+ 1ba:	f1 f7       	brne	.-4      	; 0x1b8 <main+0xde>
+ 1bc:	01 96       	adiw	r24, 0x01	; 1
+ 1be:	b2 cf       	rjmp	.-156    	; 0x124 <main+0x4a>
+
+000001c0 <_exit>:
+ 1c0:	f8 94       	cli
+
+000001c2 <__stop_program>:
+ 1c2:	ff cf       	rjmp	.-2      	; 0x1c2 <__stop_program>

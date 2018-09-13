@@ -1,0 +1,12 @@
+# Writing all output to: C:\Users\amanu\OneDrive\Desktop\mi_SmartLaseFeatureExtensionBoard\PCB_Design\V_100\PCB_miSL_FEB.log
+set pad_wire_necking on
+bus diagonal
+fanout 5
+route 50
+clean 2
+route 50 16
+clean 2
+filter 5
+recorner diagonal
+status_file
+
